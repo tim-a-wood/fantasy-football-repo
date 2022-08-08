@@ -14,7 +14,8 @@
                 "${fileDirname}\\SR\\SR_CreateTeam.cpp",
                 "${fileDirname}\\UI\\UI_GetUserInput.cpp",
                 "${fileDirname}\\UI\\UI_DisplayTeamCreationForm.cpp",
-                "${fileDirname}\\RM\\RM_ValidateTeamName.cpp"                  
+                "${fileDirname}\\RM\\RM_ValidateTeamName.cpp",
+                "${fileDirname}\\DB\\DB_LoadPlayers.cpp"                  
             ],
             "options": {
                 "cwd": "${fileDirname}"

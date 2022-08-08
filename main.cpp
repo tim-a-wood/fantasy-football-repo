@@ -2,6 +2,7 @@
 #include "UI/UI_Header.hpp" // UI Header
 #include "SR/SR_Header.hpp" // Scheduler Header
 #include "RM/RM_Header.hpp"
+#include "DB/DB_Header.hpp"
 
 int main(){
 
@@ -9,6 +10,8 @@ int main(){
     static const int quit           = -1;
     static const int teamCreation   = 1;
     static const int teamManagement = 2;
+
+    Player* players = loadPlayers();
 
     // runProgram will terminate the program if it goes to false
     bool runProgram{true};

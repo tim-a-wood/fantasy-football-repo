@@ -15,8 +15,7 @@ enum PlayerPos {GK, DF, MF, FW};
 struct Player 
 {
     int uid;
-    std::string surname;
-    std::string forename;
+    std::string name;
     std::string team;
     float value;
     int points;
