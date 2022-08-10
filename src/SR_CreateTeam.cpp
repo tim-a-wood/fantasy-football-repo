@@ -18,7 +18,7 @@ Team* initializeTeam() {
     return newTeam;
 }
 
-void createTeam() {
+int createTeam() {
 
     // User must enter team name until it is valid
     bool teamNameIsValid{false};
@@ -30,7 +30,7 @@ void createTeam() {
     while (!teamNameIsValid) {
 
         // Prompt the user to enter a team name
-        teamName = getUserInput("Enter Team Name:");
+        teamName = getUserString("Enter Team Name:");
 
         // Validate the team name
         teamNameIsValid = validateTeamName(teamName);
@@ -47,10 +47,24 @@ void createTeam() {
         displayTeamCreationForm(newTeam);
 
         // Get user option
-        std::string userSelection = getUserInput("Select Option:");
+        int userSelection = getUserInt("Select Option:");
 
+        // Next action depends on user selection. Switch between adding a player, swapping a player or quitting
+        if      (userSelection == 16)
+            // If quit option is selected return to the home page (programMode = 0)
+            return 0;
+        else if (userSelection <= 15 && userSelection > 0)
+            // If valid player is selected then check if player needs to be added or swapped
+            if (newTeam->players[userSelection].uid == -1)
+                // Add player
+                addPlayer(newTeam,userSelection);
+            else
+                // Swap player
+                swapPlayer(newTeam,userSelection);             
     }
     
     // Delete newTeam_ptr from the heap to free up memory
     delete[] newTeam;
+
+    return 2;
 }

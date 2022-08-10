@@ -34,9 +34,7 @@ int main(){
             // Team Creation Mode
             case 1 :
                 // Schedule Team Creation
-                createTeam(); 
-                // Transition to Team Management Mode upon completion of Team Creation
-                programMode = teamManagement; 
+                programMode = createTeam(); 
                 break;
 
             // Team Management Mode
@@ -46,7 +44,7 @@ int main(){
 
             // Quit Program
             default :
-                std::cout << "default";
+                runProgram = false;
                 break;
 
        } // switch

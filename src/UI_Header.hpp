@@ -14,7 +14,10 @@ All function declarations for the UI component are contained in this header file
 int displayHomePage(const int,const int);
 
 // Function to prompt and receive a user input. The return value is a string
-std::string getUserInput(std::string);
+std::string getUserString(std::string);
+
+// Function to prompt and receive a user input. The return value is an int
+int getUserInt(std::string);
 
 // Function to display the team creation form
 void displayTeamCreationForm(Team *);

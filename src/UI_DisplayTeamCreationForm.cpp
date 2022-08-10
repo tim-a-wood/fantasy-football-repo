@@ -36,6 +36,7 @@ void displayTeamCreationForm(Team *team) {
                  << team->players[i].position
                  << ")\n";
         }
-    }    
+    }
+    cout << "16: Quit\n";
 
 }

@@ -16,6 +16,8 @@
                 "${fileDirname}\\UI_DisplayTeamCreationForm.cpp",
                 "${fileDirname}\\RM_ValidateTeamName.cpp",
                 "${fileDirname}\\DB_LoadPlayers.cpp",
+                "${fileDirname}\\SR_AddPlayer.cpp",
+                "${fileDirname}\\SR_SwapPlayer.cpp",
                 "${fileDirname}\\types.hpp"                  
             ],
             "options": {

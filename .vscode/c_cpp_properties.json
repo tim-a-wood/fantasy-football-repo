@@ -4,10 +4,6 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}\\UI",
-                "${workspaceFolder}\\RM",
-                "${workspaceFolder}\\SR",
-                "${workspaceFolder}\\DB",
                 "${workspaceFolder}"
             ],
             "defines": [
