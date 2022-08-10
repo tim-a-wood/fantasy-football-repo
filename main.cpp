@@ -11,6 +11,7 @@ int main(){
     static const int teamCreation   = 1;
     static const int teamManagement = 2;
 
+    // Load the player base TODO - move this to a startup function
     Player* players = loadPlayers();
 
     // runProgram will terminate the program if it goes to false
@@ -50,6 +51,9 @@ int main(){
        } // switch
 
     } // while
+
+    // Clear memory
+    delete[] players;
 
     return 0;
 }

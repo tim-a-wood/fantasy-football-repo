@@ -10,12 +10,13 @@
                 "${file}",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
-                "${fileDirname}\\UI\\UI_HomePage.cpp",
-                "${fileDirname}\\SR\\SR_CreateTeam.cpp",
-                "${fileDirname}\\UI\\UI_GetUserInput.cpp",
-                "${fileDirname}\\UI\\UI_DisplayTeamCreationForm.cpp",
-                "${fileDirname}\\RM\\RM_ValidateTeamName.cpp",
-                "${fileDirname}\\DB\\DB_LoadPlayers.cpp"                  
+                "${fileDirname}\\UI_HomePage.cpp",
+                "${fileDirname}\\SR_CreateTeam.cpp",
+                "${fileDirname}\\UI_GetUserInput.cpp",
+                "${fileDirname}\\UI_DisplayTeamCreationForm.cpp",
+                "${fileDirname}\\RM_ValidateTeamName.cpp",
+                "${fileDirname}\\DB_LoadPlayers.cpp",
+                "${fileDirname}\\types.hpp"                  
             ],
             "options": {
                 "cwd": "${fileDirname}"
