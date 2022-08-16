@@ -10,10 +10,10 @@ All function declarations for the SR component are contained in this header file
 #define SR_H
 
 // Function to schedule the team creation task
-int createTeam();
+int createTeam(Player*);
 
 // Function to add a new player
-void addPlayer(Team*,int);
+void addPlayer(Team*,int,Player*);
 
 // Function to swap a player
 void swapPlayer(Team*,int);

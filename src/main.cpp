@@ -34,7 +34,7 @@ int main(){
             // Team Creation Mode
             case 1 :
                 // Schedule Team Creation
-                programMode = createTeam(); 
+                programMode = createTeam(players); 
                 break;
 
             // Team Management Mode

@@ -18,7 +18,7 @@ Team* initializeTeam() {
     return newTeam;
 }
 
-int createTeam() {
+int createTeam(Player *playerBase) {
 
     // User must enter team name until it is valid
     bool teamNameIsValid{false};
@@ -57,7 +57,7 @@ int createTeam() {
             // If valid player is selected then check if player needs to be added or swapped
             if (newTeam->players[userSelection].uid == -1)
                 // Add player
-                addPlayer(newTeam,userSelection);
+                addPlayer(newTeam,userSelection,playerBase);
             else
                 // Swap player
                 swapPlayer(newTeam,userSelection);             
