@@ -39,4 +39,7 @@ void displayTeamCreationForm(Team *team) {
     }
     cout << "16: Quit\n";
 
+    // Need to display the remaining team budget so user can track
+    cout << "\nRemaining Transfer Funds: £" << team->balance << "\n";
+
 }

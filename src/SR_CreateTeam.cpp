@@ -4,10 +4,17 @@
 #include <string>
 
 // Local function to initialize a new team
-Team* initializeTeam() {
+Team* initializeTeam(std::string teamName) {
 
     // Create new team object
     Team *newTeam = new Team;
+    newTeam->teamName = teamName;
+
+    // Starting balance is £100m
+    newTeam->balance = 100;
+
+    // Starting points are zero
+    newTeam->points = 0;
 
     // Set uid of all new players  to -1 (empty)
     for(size_t i = 0; i < 15; i++)
@@ -23,7 +30,7 @@ int createTeam(Player *playerBase) {
     // User must enter team name until it is valid
     bool teamNameIsValid{false};
 
-    std::string teamName{}; // Initialize team name
+    std::string teamName; // Initialize team name
 
     bool userSubmit{false}; // Initialize user submit request
 
@@ -34,11 +41,10 @@ int createTeam(Player *playerBase) {
 
         // Validate the team name
         teamNameIsValid = validateTeamName(teamName);
-
         }    
 
     // Initialize the new team
-    Team* newTeam = initializeTeam();
+    Team* newTeam = initializeTeam(teamName);
 
     // Continue to display the team creation form until submitted
     while (!userSubmit){
