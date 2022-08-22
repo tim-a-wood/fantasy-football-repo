@@ -19,4 +19,7 @@ bool validatePlayerAddition(Player,Team*);
 // Check if player purchase exceeds remaining funds
 bool checkFunds(float,float);
 
+// Check if player does not already exist in team
+bool checkPlayerIsUnique(Player*,Player);
+
 #endif // SR_H

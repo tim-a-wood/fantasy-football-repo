@@ -65,4 +65,7 @@ void addPlayer(Team *team, int userSelection, Player *playerBase)
         // Invalid selection
     }
     team->players[userSelection-1] = player;
+
+    // Update team value
+    team->balance -= player.value;
 }

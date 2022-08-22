@@ -20,6 +20,7 @@ Team* initializeTeam(std::string teamName) {
     for(size_t i = 0; i < 15; i++)
     {
         newTeam->players[i].uid = -1;
+        newTeam->players[i].name = "ADD PLAYER";
     }
 
     return newTeam;

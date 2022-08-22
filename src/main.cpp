@@ -23,6 +23,7 @@ int main(){
 
     while (runProgram) {
 
+
        // The program will switch through different modes as defined by programMode
        switch (programMode) {
 
