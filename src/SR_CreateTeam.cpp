@@ -62,7 +62,7 @@ int createTeam(Player *playerBase) {
             return 0;
         else if (userSelection <= 15 && userSelection > 0)
             // If valid player is selected then check if player needs to be added or swapped
-            if (newTeam->players[userSelection].uid == -1)
+            if (newTeam->players[userSelection-1].uid == -1)
                 // Add player
                 addPlayer(newTeam,userSelection,playerBase);
             else

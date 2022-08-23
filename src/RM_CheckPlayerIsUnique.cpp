@@ -10,7 +10,11 @@ bool checkPlayerIsUnique(Player *players, Player player)
         if (players[i].uid == player.uid)
         {
             playerIsUnique = false;
-            std::cout << "You already own this player!";
+            std::cout << "You already own this player!\n\n"
+                      << "Press any key to continue";
+            char input;
+            std::cin >> input;
+
         }
     }
 

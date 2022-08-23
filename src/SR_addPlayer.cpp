@@ -1,6 +1,7 @@
 #include "SR_Header.hpp"
 #include "types.hpp"
 #include "UI_Header.hpp"
+#include "RM_Header.hpp"
 #include <iostream>
 
 using namespace std;
@@ -39,31 +40,40 @@ Player findPlayer(PlayerPos position, Player* playerBase)
 void addPlayer(Team *team, int userSelection, Player *playerBase)
 {
     Player player;
-    // Players to display depends on position selected
-    if      (userSelection == 1 || userSelection == 12)
+    bool playerAdditionIsValid{false};
+
+    while (!playerAdditionIsValid)
     {
-        // GK selected
-        player = findPlayer(PlayerPos::GK, playerBase);
+        // Players to display depends on position selected
+        if      (userSelection == 1 || userSelection == 12)
+        {
+            // GK selected
+            player = findPlayer(PlayerPos::GK, playerBase);
+        }
+        else if (userSelection <= 5 || userSelection == 13)
+        {
+            // DF selected
+            player = findPlayer(PlayerPos::DF, playerBase);
+        }
+        else if (userSelection <= 9 || userSelection == 14)
+        {
+            // MF selected
+            player = findPlayer(PlayerPos::MF, playerBase);
+        }
+        else if (userSelection <= 11 || userSelection == 15)
+        {
+            // FW selected
+            player = findPlayer(PlayerPos::FW, playerBase);
+        }
+        else
+        {
+            // Invalid selection
+        }
+
+    playerAdditionIsValid = validatePlayerAddition(player,team);
+
     }
-    else if (userSelection <= 5 || userSelection == 13)
-    {
-        // DF selected
-        player = findPlayer(PlayerPos::DF, playerBase);
-    }
-    else if (userSelection <= 9 || userSelection == 14)
-    {
-        // MF selected
-        player = findPlayer(PlayerPos::MF, playerBase);
-    }
-    else if (userSelection <= 11 || userSelection == 15)
-    {
-        // FW selected
-        player = findPlayer(PlayerPos::FW, playerBase);
-    }
-    else
-    {
-        // Invalid selection
-    }
+
     team->players[userSelection-1] = player;
 
     // Update team value
