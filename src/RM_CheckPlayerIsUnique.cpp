@@ -7,7 +7,7 @@ bool checkPlayerIsUnique(Player *players, Player player)
 
     for (size_t i = 0; i < 15; i++)
     {
-        if (players[i].uid == player.uid)
+        if (players[i].uid == player.uid && player.uid != -1)
         {
             playerIsUnique = false;
             std::cout << "You already own this player!\n\n"

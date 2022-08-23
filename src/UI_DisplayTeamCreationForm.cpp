@@ -35,7 +35,7 @@ void printLine(std::string str, int num)
 void displayTeamCreationForm(Team *team) {    
 
     // Step through line by line from GK -> DF's -> MF's -> FW's > Bench
-    for (size_t i = 0; i < 5; i++)
+    for (size_t i = 0; i <= 5; i++)
     {
 
         std::string name;
@@ -43,8 +43,19 @@ void displayTeamCreationForm(Team *team) {
 
         switch (i)
         {
-            // Goalkeeper
+            // Header
             case 0 :
+            {
+                printLine("=========================================================================================",1);
+                cout << "\n\n";
+                cout << "TEAM NAME: " << team->teamName << "\n";
+                cout << "REMAINING TRANSFER FUNDS: £" << team->balance << "m"; 
+                cout << "\n\n";   
+                break;
+            }
+
+            // Goalkeeper
+            case 1 :
             {
                 printLine("=========================================================================================",1);
                 cout << "\n\n";
@@ -58,7 +69,7 @@ void displayTeamCreationForm(Team *team) {
             }
 
             // Defenders
-            case 1 :
+            case 2 :
             {
                 printLine("#2",4);
                 printLine("#3",4);
@@ -74,7 +85,7 @@ void displayTeamCreationForm(Team *team) {
             }
 
             // Midfielders
-            case 2 :
+            case 3 :
             {
                 printLine("#6",4);
                 printLine("#7",4);
@@ -90,7 +101,7 @@ void displayTeamCreationForm(Team *team) {
             }
 
             // Forwards
-            case 3 :
+            case 4 :
             {
                 printLine("#10",2);
                 printLine("#11",2);
@@ -102,7 +113,7 @@ void displayTeamCreationForm(Team *team) {
             }
 
             // Bench
-            case 4:
+            case 5:
             {
                 printLine("=========================================================================================",1);
                 cout << "\n\n";
@@ -127,8 +138,5 @@ void displayTeamCreationForm(Team *team) {
 
     // Need option to quit to main menu
     cout << "#16 - Return to Main Menu\n";
-
-    // Need to display the remaining team budget so user can track
-    cout << "\nRemaining Transfer Funds: £" << team->balance << "m\n";
 
 }

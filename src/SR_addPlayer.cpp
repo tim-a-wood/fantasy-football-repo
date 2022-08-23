@@ -26,13 +26,24 @@ Player findPlayer(PlayerPos position, Player* playerBase)
             count++;
         }
     }
+    cout << "\n" << count << ": BACK\n";
 
     // Get player selection
     int selection = getUserInt("Make Selection:");
 
-    // Assign player to selected player
-    int index = playerMap[selection];
-    player = playerBase[index];   
+    if (selection == count)
+    {
+        // If back option is selected then return an empty player
+        player.name = "ADD PLAYER";
+        player.uid  = -1;
+        player.value = 0;
+    }
+    else
+    {
+        // Assign player to selected player
+        int index = playerMap[selection];
+        player = playerBase[index];
+    }    
 
     return player;
 }
