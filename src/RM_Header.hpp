@@ -14,12 +14,6 @@ All function declarations for the RM component are contained in this header file
 bool validateTeamName(std::string);
 
 // Rule monitor is responsible for checking the addition of a player does not violate rules (e.g. exceeds balance)
-bool validatePlayerAddition(Player,Team*);
-
-// Check if player purchase exceeds remaining funds
-bool checkFunds(float,float);
-
-// Check if player does not already exist in team
-bool checkPlayerIsUnique(Player*,Player);
+bool validatePlayerAddition(Player,Team*,int);
 
 #endif // SR_H

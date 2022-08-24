@@ -21,6 +21,7 @@ Team* initializeTeam(std::string teamName) {
     {
         newTeam->players[i].uid = -1;
         newTeam->players[i].name = "ADD PLAYER";
+        newTeam->players[i].value = 0;
     }
 
     return newTeam;
@@ -67,7 +68,7 @@ int createTeam(Player *playerBase) {
                 addPlayer(newTeam,userSelection,playerBase);
             else
                 // Swap player
-                swapPlayer(newTeam,userSelection);             
+                swapPlayer(newTeam,userSelection,playerBase);             
     }
     
     // Delete newTeam_ptr from the heap to free up memory

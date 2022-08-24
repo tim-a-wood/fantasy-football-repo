@@ -16,6 +16,6 @@ int createTeam(Player*);
 void addPlayer(Team*,int,Player*);
 
 // Function to swap a player
-void swapPlayer(Team*,int);
+void swapPlayer(Team*,int,Player*);
 
 #endif // SR_H

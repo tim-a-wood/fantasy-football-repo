@@ -6,9 +6,8 @@
 
 using namespace std;
 
-Player findPlayer(PlayerPos position, Player* playerBase)
+Player findPlayer(PlayerPos position, Player* playerBase, Player player)
 {
-    Player player;
     cout << "Select player to add:\n";
     int count = 1;
     int playerMap[573];
@@ -31,14 +30,7 @@ Player findPlayer(PlayerPos position, Player* playerBase)
     // Get player selection
     int selection = getUserInt("Make Selection:");
 
-    if (selection == count)
-    {
-        // If back option is selected then return an empty player
-        player.name = "ADD PLAYER";
-        player.uid  = -1;
-        player.value = 0;
-    }
-    else
+    if (selection != count)
     {
         // Assign player to selected player
         int index = playerMap[selection];
@@ -48,7 +40,7 @@ Player findPlayer(PlayerPos position, Player* playerBase)
     return player;
 }
 
-void addPlayer(Team *team, int userSelection, Player *playerBase)
+Player getPlayer(Team *team, int userSelection, Player *playerBase)
 {
     Player player;
     bool playerAdditionIsValid{false};
@@ -59,34 +51,56 @@ void addPlayer(Team *team, int userSelection, Player *playerBase)
         if      (userSelection == 1 || userSelection == 12)
         {
             // GK selected
-            player = findPlayer(PlayerPos::GK, playerBase);
+            player = findPlayer(PlayerPos::GK, playerBase, team->players[userSelection-1]);
         }
         else if (userSelection <= 5 || userSelection == 13)
         {
             // DF selected
-            player = findPlayer(PlayerPos::DF, playerBase);
+            player = findPlayer(PlayerPos::DF, playerBase, team->players[userSelection-1]);
         }
         else if (userSelection <= 9 || userSelection == 14)
         {
             // MF selected
-            player = findPlayer(PlayerPos::MF, playerBase);
+            player = findPlayer(PlayerPos::MF, playerBase, team->players[userSelection-1]);
         }
         else if (userSelection <= 11 || userSelection == 15)
         {
             // FW selected
-            player = findPlayer(PlayerPos::FW, playerBase);
+            player = findPlayer(PlayerPos::FW, playerBase, team->players[userSelection-1]);
         }
         else
         {
             // Invalid selection
         }
 
-    playerAdditionIsValid = validatePlayerAddition(player,team);
+    playerAdditionIsValid = validatePlayerAddition(player,team,userSelection);
 
     }
 
-    team->players[userSelection-1] = player;
+    return player;
+}
+
+void addPlayer(Team *team, int userSelection, Player *playerBase)
+{
+    // Get player selection
+    Player player = getPlayer(team, userSelection, playerBase);
 
     // Update team value
     team->balance -= player.value;
+
+    // Update team
+    team->players[userSelection-1] = player;
+}
+
+void swapPlayer(Team *team, int userSelection, Player* playerBase)
+{
+    // Get player selection
+    Player player = getPlayer(team, userSelection, playerBase);
+
+    // Update team value
+    team->balance -= player.value;
+    team->balance += team->players[userSelection-1].value;
+
+    // Update team
+    team->players[userSelection-1] = player;
 }
