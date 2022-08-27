@@ -9,6 +9,7 @@ Team* initializeTeam(std::string teamName) {
     // Create new team object
     Team *newTeam = new Team;
     newTeam->teamName = teamName;
+    newTeam->teamComplete = false;
 
     // Starting balance is £100m
     newTeam->balance = 100;
@@ -27,7 +28,7 @@ Team* initializeTeam(std::string teamName) {
     return newTeam;
 }
 
-int createTeam(Player *playerBase) {
+Team* createTeam(Player *playerBase) {
 
     // User must enter team name until it is valid
     bool teamNameIsValid{false};
@@ -57,11 +58,15 @@ int createTeam(Player *playerBase) {
         // Get user option
         int userSelection = getUserInt("Select Option:");
 
-        // Next action depends on user selection. Switch between adding a player, swapping a player or quitting
+        // Next action depends on user selection. Switch between adding a player, swapping a player, submitting team or quitting
         if      (userSelection == 16)
-            // If quit option is selected return to the home page (programMode = 0)
             return 0;
+
+        else if (userSelection == 17)
+            userSubmit = true;
+
         else if (userSelection <= 15 && userSelection > 0)
+
             // If valid player is selected then check if player needs to be added or swapped
             if (newTeam->players[userSelection-1].uid == -1)
                 // Add player
@@ -70,9 +75,9 @@ int createTeam(Player *playerBase) {
                 // Swap player
                 swapPlayer(newTeam,userSelection,playerBase);             
     }
-    
-    // Delete newTeam_ptr from the heap to free up memory
-    delete[] newTeam;
 
-    return 2;
+    // Write the new team to database
+    // TODO: complete function - bool saveTeam();
+
+    return newTeam;
 }

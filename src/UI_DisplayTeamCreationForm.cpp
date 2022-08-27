@@ -136,7 +136,17 @@ void displayTeamCreationForm(Team *team) {
         }
     }
 
-    // Need option to quit to main menu
-    cout << "#16 - Return to Main Menu\n";
+    // The Submit Team option is only displayed when all positions in the team have been filled
+    bool emptySlot{false};
+    for (size_t i = 0; i < 15; i++)
+    {
+        if (team->players[i].uid == -1)
+            emptySlot = true;
+    }
+    if (emptySlot)
+        cout << "#16 - Return to Main Menu\n";
+    else
+        cout << "#16 - Return to Main Menu\n"
+             << "#17 - Submit Team\n";
 
 }

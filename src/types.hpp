@@ -31,6 +31,7 @@ struct Team
     float balance;
     Player players[15];
     int points;
+    bool teamComplete;
 };
 
 #endif // UI_H

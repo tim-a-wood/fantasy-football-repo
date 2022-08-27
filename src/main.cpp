@@ -14,6 +14,7 @@ int main(){
 
     // Load the player base TODO - move this to a startup function
     Player* players = loadPlayers();
+    Team* team;
 
     // runProgram will terminate the program if it goes to false
     bool runProgram{true};
@@ -35,7 +36,10 @@ int main(){
             // Team Creation Mode
             case 1 :
                 // Schedule Team Creation
-                programMode = createTeam(players); 
+                team = createTeam(players); 
+                // When team has been created successfully, switch to the Team Management screen
+                if (team->teamComplete)
+                    programMode = 2;
                 break;
 
             // Team Management Mode
@@ -54,6 +58,7 @@ int main(){
 
     // Clear memory
     delete[] players;
+    delete[] team;
 
     return 0;
 }
