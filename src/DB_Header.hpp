@@ -12,4 +12,7 @@ All function declarations for the DB Interface component are contained in this h
 // Function to load in the player base
 Player* loadPlayers();
 
+// Function to save a team to file
+bool saveTeam(Team*);
+
 #endif // SR_H

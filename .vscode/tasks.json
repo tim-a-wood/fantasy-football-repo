@@ -18,6 +18,7 @@
                 "${fileDirname}\\DB_LoadPlayers.cpp",
                 "${fileDirname}\\SR_NewPlayer.cpp",
                 "${fileDirname}\\RM_ValidatePlayerAddition.cpp",
+                "${fileDirname}\\DB_SaveTeam.cpp",
                 "${fileDirname}\\types.hpp"                  
             ],
             "options": {

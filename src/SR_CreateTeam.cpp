@@ -1,6 +1,7 @@
 #include "SR_Header.hpp"
 #include "UI_Header.hpp"
 #include "RM_Header.hpp"
+#include "DB_Header.hpp"
 #include <string>
 
 // Local function to initialize a new team
@@ -63,7 +64,13 @@ Team* createTeam(Player *playerBase) {
             return 0;
 
         else if (userSelection == 17)
+        {
             userSubmit = true;
+            // Write the new team to database. If writing fails then reset the teamComplete flag to false.
+            bool teamSaved = saveTeam(newTeam);
+            if (!teamSaved)
+                newTeam->teamComplete = false;
+        }
 
         else if (userSelection <= 15 && userSelection > 0)
 
@@ -76,8 +83,7 @@ Team* createTeam(Player *playerBase) {
                 swapPlayer(newTeam,userSelection,playerBase);             
     }
 
-    // Write the new team to database
-    // TODO: complete function - bool saveTeam();
+    
 
     return newTeam;
 }

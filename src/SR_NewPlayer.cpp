@@ -6,6 +6,11 @@
 
 using namespace std;
 
+void filterPlayers(Player* playerBase)
+{
+    
+}
+
 Player findPlayer(PlayerPos position, Player* playerBase, Player player)
 {
     cout << "Select player to add:\n";
@@ -25,18 +30,35 @@ Player findPlayer(PlayerPos position, Player* playerBase, Player player)
             count++;
         }
     }
-    cout << "\n" << count << ": BACK\n";
+    cout << "\n";
+    cout << count << ": Filter\n";
+    count++;
+    cout << count << ": Sort\n";
+    count++;
+    cout << count << ": BACK\n";
 
     // Get player selection
-    int selection = getUserInt("Make Selection:");
+    bool selectionComplete{false};
 
-    if (selection != count)
+    int selection;
+    
+    while (!selectionComplete)
     {
-        // Assign player to selected player
-        int index = playerMap[selection];
-        player = playerBase[index];
-    }    
+        selection = getUserInt("Make Selection:");
 
+        if (selection < count-2 && selection > 0)
+        {
+            // Assign player to selected player
+            int index = playerMap[selection];
+            player = playerBase[index];
+            selectionComplete = true;
+        } 
+        else if (selection > count || selection <= 0)
+            cout << "Invalid Selection";
+        else if (selection == count - 2)
+            // Filter the players 
+            filterPlayers(playerBase);  
+    }
     return player;
 }
 
@@ -90,6 +112,16 @@ void addPlayer(Team *team, int userSelection, Player *playerBase)
 
     // Update team
     team->players[userSelection-1] = player;
+
+    // Check if all positions have been filled
+    bool emptySlot{false};
+    for (size_t i=0; i < 15; i++)
+    {
+        if (team->players[i].uid == -1)
+            emptySlot = true;
+    }
+    if (!emptySlot)
+        team->teamComplete = true;
 }
 
 void swapPlayer(Team *team, int userSelection, Player* playerBase)
