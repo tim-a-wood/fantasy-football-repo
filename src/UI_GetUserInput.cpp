@@ -26,3 +26,14 @@ int getUserInt(string prompt) {
     // Return input
     return input;
 }
+
+float getUserFloat(string prompt) {
+
+    // Prompt user for team name
+    float input;
+    cout << "\n" << prompt << "\n";
+    cin >> input;
+
+    // Return input
+    return input;
+}

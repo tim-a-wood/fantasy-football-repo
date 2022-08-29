@@ -19,6 +19,9 @@ std::string getUserString(std::string);
 // Function to prompt and receive a user input. The return value is an int
 int getUserInt(std::string);
 
+// Function to prompt and receive a user input. The return value is an float
+float getUserFloat(std::string);
+
 // Function to display the team creation form
 void displayTeamCreationForm(Team *);
 
