@@ -6,7 +6,7 @@
 
 using namespace std;
 
-Player findPlayer(PlayerPos position, Player* playerBase, Player player, int filterOption, float filterValue)
+Player findPlayer(PlayerPos position, Player* playerBase, Player player, int filterOption, float filterValue, string club)
 {
     cout << "\nSelect player to add:\n\n";
     int count = 1;
@@ -35,6 +35,12 @@ Player findPlayer(PlayerPos position, Player* playerBase, Player player, int fil
             case 2:
             {
                 includePlayer = playerBase[i].position == position && playerBase[i].value <= filterValue;
+                break;
+            }
+            // Filter on Club
+            case 3:
+            {
+                includePlayer = playerBase[i].position == position && playerBase[i].team == club;
                 break;
             }
             // Catch error
@@ -88,7 +94,8 @@ Player findPlayer(PlayerPos position, Player* playerBase, Player player, int fil
                 // Filter on Club
                 case 1:
                 {
-                    player = findPlayer(position,playerBase,player,0,0);
+                    string club = getUserString("Select Club:\n\nARS AVL BOU BRE BHA CHE CRY EVE FUL LEI\nLEE LIV MCI MUN NEW NFO SOU TOT WHU WOL");
+                    player = findPlayer(position,playerBase,player,3,0,club);
                     selectionComplete = true;
                     break;
                 }
@@ -96,7 +103,7 @@ Player findPlayer(PlayerPos position, Player* playerBase, Player player, int fil
                 case 2:
                 {
                     float minValue = getUserFloat("Enter minimum value in £ (millions):");
-                    player = findPlayer(position,playerBase,player,1,minValue);
+                    player = findPlayer(position,playerBase,player,1,minValue,"");
                     selectionComplete = true;
                     break;
                 }
@@ -104,7 +111,7 @@ Player findPlayer(PlayerPos position, Player* playerBase, Player player, int fil
                 case 3:
                 {
                     float maxValue = getUserFloat("Enter maximum value in £ (millions):");
-                    player = findPlayer(position,playerBase,player,2,maxValue);
+                    player = findPlayer(position,playerBase,player,2,maxValue,"");
                     selectionComplete = true;
                     break;
                 }
@@ -112,7 +119,7 @@ Player findPlayer(PlayerPos position, Player* playerBase, Player player, int fil
                 default:
                 {
                     cout << "\nInvalid Selection!\n";
-                    player = findPlayer(position,playerBase,player,0,0);
+                    player = findPlayer(position,playerBase,player,0,0,"");
                     selectionComplete = true;
                     break;
                 }
@@ -121,9 +128,12 @@ Player findPlayer(PlayerPos position, Player* playerBase, Player player, int fil
         // User has selected the sort option
         else if (selection == count+1)
             cout << "Sort\n";
-        // User has entered an invalid selection
-        else 
-            cout << "Invalid Selection\n";
+        // User has selected BACK
+        else if (selection == count+2)
+            selectionComplete = true;
+        // User has entered an invalid selection 
+        else    
+            cout << "Invalid Selection\n";        
     }
  
     return player;
@@ -140,22 +150,22 @@ Player getPlayer(Team *team, int userSelection, Player *playerBase)
         if      (userSelection == 1 || userSelection == 12)
         {
             // GK selected
-            player = findPlayer(PlayerPos::GK, playerBase, team->players[userSelection-1],0,0);
+            player = findPlayer(PlayerPos::GK, playerBase, team->players[userSelection-1],0,0,"");
         }
         else if (userSelection <= 5 || userSelection == 13)
         {
             // DF selected
-            player = findPlayer(PlayerPos::DF, playerBase, team->players[userSelection-1],0,0);
+            player = findPlayer(PlayerPos::DF, playerBase, team->players[userSelection-1],0,0,"");
         }
         else if (userSelection <= 9 || userSelection == 14)
         {
             // MF selected
-            player = findPlayer(PlayerPos::MF, playerBase, team->players[userSelection-1],0,0);
+            player = findPlayer(PlayerPos::MF, playerBase, team->players[userSelection-1],0,0,"");
         }
         else if (userSelection <= 11 || userSelection == 15)
         {
             // FW selected
-            player = findPlayer(PlayerPos::FW, playerBase, team->players[userSelection-1],0,0);
+            player = findPlayer(PlayerPos::FW, playerBase, team->players[userSelection-1],0,0,"");
         }
         else
         {
