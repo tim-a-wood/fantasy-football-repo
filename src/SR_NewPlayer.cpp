@@ -92,17 +92,16 @@ Player findPlayer(PlayerPos position, Player* playerBase, Player player, int fil
         // When a player is included based on the filter criteria, we print the player information and store the index for accesing later
         if (includePlayer)
         {
-            // cout << count << ": " << playerBase[i].name 
-            //      << " - " << playerBase[i].value
-            //      << " - " << playerBase[i].team
-            //      << "\n";
             includedPlayers[count] = playerBase[i];
-            playerMap[count] = i;
             count++;
         }
     }
+
+    // Sort the players first if selected by user
     if (sortOption > 0)
         includedPlayers = sortPlayers(includedPlayers,sortOption,count);
+
+    // Display players    
     for (size_t i = 1; i < count; i++)
     {
         cout << i << ": " << includedPlayers[i].name
@@ -128,7 +127,6 @@ Player findPlayer(PlayerPos position, Player* playerBase, Player player, int fil
         // User has selected a player, so we assign the selected player to the team using the stored index
         if (selection < count && selection > 0)
         {
-            int index = playerMap[selection];
             player = includedPlayers[selection];
             selectionComplete = true;
         } 
