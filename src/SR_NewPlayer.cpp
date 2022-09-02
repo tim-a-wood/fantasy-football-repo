@@ -6,12 +6,50 @@
 
 using namespace std;
 
-Player findPlayer(PlayerPos position, Player* playerBase, Player player, int filterOption, float filterValue, string club)
+Player* sortPlayers(Player* players,int sortOption,int count)
+{
+    // Two player structs are required to enable swapping of players in array. The index of the player to be swapped is also needed.
+    Player player1;
+    Player player2;
+    int player2_idx;
+
+    // We loop through the entire array and assign the players in order 
+    for(size_t i = 1; i <= count; i++)
+    {
+        player1 = players[i];
+        player2_idx = i;
+        for(size_t j = i+1; j <= count; j++)
+        {
+            player2 = players[j];
+            bool swapPlayer;
+            // Sort high to low
+            if (sortOption == 1)
+                swapPlayer = player2.value > player1.value;
+            // Sort low to high
+            else
+                swapPlayer = player2.value < player1.value;
+            // Player with higher priority has been found so player2 becomes player1 and index is updated
+            if (swapPlayer)
+            {
+                player1 = player2;
+                player2_idx = j;
+            }
+        }                
+        // Perform the swap
+        players[player2_idx] = players[i];
+        players[i] = player1;
+    }   
+
+    return players;
+}
+
+Player findPlayer(PlayerPos position, Player* playerBase, Player player, int filterOption, float filterValue, string club, int sortOption)
 {
     cout << "\nSelect player to add:\n\n";
     int count = 1;
     int playerMap[573];
     bool includePlayer;
+    Player *includedPlayers = new Player[573];
 
     // Loop through all players to create list of available players in position
     for (size_t i=0; i<573; i++)
@@ -54,13 +92,23 @@ Player findPlayer(PlayerPos position, Player* playerBase, Player player, int fil
         // When a player is included based on the filter criteria, we print the player information and store the index for accesing later
         if (includePlayer)
         {
-            cout << count << ": " << playerBase[i].name 
-                 << " - " << playerBase[i].value
-                 << " - " << playerBase[i].team
-                 << "\n";
+            // cout << count << ": " << playerBase[i].name 
+            //      << " - " << playerBase[i].value
+            //      << " - " << playerBase[i].team
+            //      << "\n";
+            includedPlayers[count] = playerBase[i];
             playerMap[count] = i;
             count++;
         }
+    }
+    if (sortOption > 0)
+        includedPlayers = sortPlayers(includedPlayers,sortOption,count);
+    for (size_t i = 1; i < count; i++)
+    {
+        cout << i << ": " << includedPlayers[i].name
+             << " - " << includedPlayers[i].value
+             << " - " << includedPlayers[i].team
+             << "\n";
     }
 
     // Display the additional options for data manipulation
@@ -81,7 +129,7 @@ Player findPlayer(PlayerPos position, Player* playerBase, Player player, int fil
         if (selection < count && selection > 0)
         {
             int index = playerMap[selection];
-            player = playerBase[index];
+            player = includedPlayers[selection];
             selectionComplete = true;
         } 
         // User has selected the filter option, so we prompt the user to enter the required filter criteria and then apply the filter
@@ -95,7 +143,7 @@ Player findPlayer(PlayerPos position, Player* playerBase, Player player, int fil
                 case 1:
                 {
                     string club = getUserString("Select Club:\n\nARS AVL BOU BRE BHA CHE CRY EVE FUL LEI\nLEE LIV MCI MUN NEW NFO SOU TOT WHU WOL");
-                    player = findPlayer(position,playerBase,player,3,0,club);
+                    player = findPlayer(position,playerBase,player,3,0,club,0);
                     selectionComplete = true;
                     break;
                 }
@@ -103,7 +151,7 @@ Player findPlayer(PlayerPos position, Player* playerBase, Player player, int fil
                 case 2:
                 {
                     float minValue = getUserFloat("Enter minimum value in £ (millions):");
-                    player = findPlayer(position,playerBase,player,1,minValue,"");
+                    player = findPlayer(position,playerBase,player,1,minValue,"",0);
                     selectionComplete = true;
                     break;
                 }
@@ -111,7 +159,7 @@ Player findPlayer(PlayerPos position, Player* playerBase, Player player, int fil
                 case 3:
                 {
                     float maxValue = getUserFloat("Enter maximum value in £ (millions):");
-                    player = findPlayer(position,playerBase,player,2,maxValue,"");
+                    player = findPlayer(position,playerBase,player,2,maxValue,"",0);
                     selectionComplete = true;
                     break;
                 }
@@ -119,7 +167,7 @@ Player findPlayer(PlayerPos position, Player* playerBase, Player player, int fil
                 default:
                 {
                     cout << "\nInvalid Selection!\n";
-                    player = findPlayer(position,playerBase,player,0,0,"");
+                    player = findPlayer(position,playerBase,player,0,0,"",0);
                     selectionComplete = true;
                     break;
                 }
@@ -127,7 +175,11 @@ Player findPlayer(PlayerPos position, Player* playerBase, Player player, int fil
         }
         // User has selected the sort option
         else if (selection == count+1)
-            cout << "Sort\n";
+        {
+            int sortOption = getUserInt("Select sort option:\n1: Sort by value - high to low\n2: Sort by value - low to high");
+            player = findPlayer(position,playerBase,player,0,0,"",sortOption);
+            selectionComplete = true;
+        }
         // User has selected BACK
         else if (selection == count+2)
             selectionComplete = true;
@@ -135,6 +187,8 @@ Player findPlayer(PlayerPos position, Player* playerBase, Player player, int fil
         else    
             cout << "Invalid Selection\n";        
     }
+    // Clear memory
+    delete[] includedPlayers;
  
     return player;
 }
@@ -150,22 +204,22 @@ Player getPlayer(Team *team, int userSelection, Player *playerBase)
         if      (userSelection == 1 || userSelection == 12)
         {
             // GK selected
-            player = findPlayer(PlayerPos::GK, playerBase, team->players[userSelection-1],0,0,"");
+            player = findPlayer(PlayerPos::GK, playerBase, team->players[userSelection-1],0,0,"",0);
         }
         else if (userSelection <= 5 || userSelection == 13)
         {
             // DF selected
-            player = findPlayer(PlayerPos::DF, playerBase, team->players[userSelection-1],0,0,"");
+            player = findPlayer(PlayerPos::DF, playerBase, team->players[userSelection-1],0,0,"",0);
         }
         else if (userSelection <= 9 || userSelection == 14)
         {
             // MF selected
-            player = findPlayer(PlayerPos::MF, playerBase, team->players[userSelection-1],0,0,"");
+            player = findPlayer(PlayerPos::MF, playerBase, team->players[userSelection-1],0,0,"",0);
         }
         else if (userSelection <= 11 || userSelection == 15)
         {
             // FW selected
-            player = findPlayer(PlayerPos::FW, playerBase, team->players[userSelection-1],0,0,"");
+            player = findPlayer(PlayerPos::FW, playerBase, team->players[userSelection-1],0,0,"",0);
         }
         else
         {
